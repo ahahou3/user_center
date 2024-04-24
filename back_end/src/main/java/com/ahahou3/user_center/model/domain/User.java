@@ -1,9 +1,7 @@
 package com.ahahou3.user_center.model.domain;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.io.Serializable;
 import java.util.Date;
 import lombok.Data;
@@ -22,7 +20,7 @@ public class User implements Serializable {
     private Long id;
 
     /**
-     * 用户呢称
+     * 用户昵称
      */
     private String userName;
 
@@ -74,10 +72,11 @@ public class User implements Serializable {
     /**
      * 是否删除 0-正常
      */
+    @TableLogic
     private Integer isDelete;
 
     /**
-     * 
+     * 用户角色 0 - 普通用户 1 - 管理员
      */
     private Integer userRole;
 
