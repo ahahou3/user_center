@@ -1,5 +1,7 @@
 package com.ahahou3.user_center.service.impl;
 
+import com.ahahou3.user_center.common.ErrorCode;
+import com.ahahou3.user_center.exception.BusinessException;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ahahou3.user_center.model.domain.User;
@@ -44,31 +46,30 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
 
         // 1. 校验
         if(StringUtils.isAnyBlank(userAccount, userPassword, checkPassword)){
-            return  -1;
+            throw new BusinessException(ErrorCode.PARAMETERS_ERROR,"参数为空");
         }
         if(userAccount.length() < 4){
-            System.out.println("test1");
-            return  -1;
+            throw new BusinessException(ErrorCode.PARAMETERS_ERROR,"账号长度太短");
         }
         if(userPassword.length() < 8 || checkPassword.length() < 8){
-            return  -1;
+            throw new BusinessException(ErrorCode.PARAMETERS_ERROR,"密码长度太短");
         }
         //账户不能包含特殊字符
         String validPattern = "^[a-zA-Z0-9_]+$";
         Matcher matcher = Pattern.compile(validPattern).matcher(userAccount);
         if(!matcher.find()){
-            return -1;
+            throw new BusinessException(ErrorCode.PARAMETERS_ERROR,"账户不能包含特殊字符");
         }
         //密码和校验密码相同
         if(!userPassword.equals((checkPassword))){
-            return -1;
+            throw new BusinessException(ErrorCode.PARAMETERS_ERROR,"两次输入密码不同");
         }
         //账户不能重复
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("userAccount", userAccount);
         long count = userMapper.selectCount(queryWrapper);
         if(count > 0){//检验相同用户名数量
-            return -1;
+            throw new BusinessException(ErrorCode.PARAMETERS_ERROR,"用户名重复");
         }
 
         // 2. 加密
@@ -80,7 +81,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         user.setUserPassword(encryptPassword);
         boolean saveResult = this.save(user);
         if(!saveResult){//检验存储结果是否为null
-            return -1;
+            throw new BusinessException(ErrorCode.NULL_ERROR,"账户未存入数据库");
         }
         return user.getId();
     }
@@ -89,19 +90,19 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     public User userLogin(String userAccount, String userPassword, HttpServletRequest request) {
         // 1. 校验
         if(StringUtils.isAnyBlank(userAccount, userPassword)){
-            return  null;
+            throw new BusinessException(ErrorCode.PARAMETERS_ERROR,"参数为空");
         }
         if(userAccount.length() < 4){
-            return  null;
+            throw new BusinessException(ErrorCode.PARAMETERS_ERROR,"账号长度太短");
         }
         if(userPassword.length() < 8){
-            return  null;
+            throw new BusinessException(ErrorCode.PARAMETERS_ERROR,"密码长度太短");
         }
         //账户不能包含特殊字符
         String validPattern = "^[a-zA-Z0-9_]+$";
         Matcher matcher = Pattern.compile(validPattern).matcher(userAccount);
         if(!matcher.find()){
-            return null;
+            throw new BusinessException(ErrorCode.PARAMETERS_ERROR,"账户不能包含特殊字符");
         }
 
         // 2. 加密
@@ -114,7 +115,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         //用户不存在
         if(user == null){
             log.info("user login failed, userAccount cannot match userPassword");
-            return null;
+            throw new BusinessException(ErrorCode.PARAMETERS_ERROR,"用户名不存在");
         }
 
         //3.用户脱敏
@@ -134,7 +135,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     @Override
     public  User getSaftyUser(User originUser){
         if (originUser == null) {
-            return null;
+            throw new BusinessException(ErrorCode.NULL_ERROR);
         }
         User saftyUser = new User();
         saftyUser.setId(originUser.getId());
