@@ -2,7 +2,11 @@ export default [
   {
     path: '/user',
     layout: false,
-    routes: [{ name: '登录', path: '/user/login', component: './User/Login' }],
+    routes: [
+      { name: '登录', path: '/user/login', component: './User/Login' },
+      { name: '注册', path: '/user/register', component: './User/Register' },
+      { component: './404' }
+    ],
   },
   { path: '/welcome', name: '欢迎', icon: 'smile', component: './Welcome' },
   {
@@ -11,6 +15,7 @@ export default [
     icon: 'crown',
     access: 'canAdmin',
     routes: [
+      { path: '/admin/user-manage', name:'用户管理', component: './Admin/UserManage' },
       { path: '/admin', redirect: '/admin/sub-page' },
       { path: '/admin/sub-page', name: '二级管理页', component: './Admin' },
     ],
