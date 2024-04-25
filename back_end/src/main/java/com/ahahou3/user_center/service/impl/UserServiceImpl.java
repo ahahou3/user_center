@@ -106,7 +106,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
 
         // 2. 加密
         String encryptPassword = DigestUtils.md5DigestAsHex((SALT + userPassword).getBytes());
-        System.out.println("加密后密码 = "+encryptPassword);
         //查询用户是否存在
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("userAccount", userAccount);

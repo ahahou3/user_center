@@ -56,7 +56,7 @@ public class UserController {
     }
 
     @PostMapping("/logout")
-    public Integer userLogout(@RequestBody HttpServletRequest request){
+    public Integer userLogout(HttpServletRequest request){
         if (request == null){
             return null;
         }
