@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.ahahou3.user_center.constant.Constants.ADMIN_ROLE;
-import static com.ahahou3.user_center.constant.Constants.USER_LOGIN_STATE;
+import static com.ahahou3.user_center.constant.UserConstants.ADMIN_ROLE;
+import static com.ahahou3.user_center.constant.UserConstants.USER_LOGIN_STATE;
 
 /**
  * 用户接口1

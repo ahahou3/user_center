@@ -15,7 +15,7 @@ import org.springframework.util.DigestUtils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.ahahou3.user_center.constant.Constants.USER_LOGIN_STATE;
+import static com.ahahou3.user_center.constant.UserConstants.USER_LOGIN_STATE;
 
 /**
  * 用户服务实现类

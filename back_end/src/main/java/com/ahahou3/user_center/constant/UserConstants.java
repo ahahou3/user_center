@@ -5,7 +5,7 @@ package com.ahahou3.user_center.constant;
  *
  * @author ahahou
  */
-public interface Constants {
+public interface UserConstants {
 
     /**
      * 用户登录态键
