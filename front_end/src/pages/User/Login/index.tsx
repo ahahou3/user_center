@@ -81,10 +81,10 @@ const Login: React.FC = () => {
       }
       // 如果失败去设置用户错误信息
       setUserLoginState(user);
-    } catch (error) {
+    } catch (error: any) {
       const defaultLoginFailureMessage = '登录失败，请重试！';
       console.log(error);
-      message.error(defaultLoginFailureMessage);
+      message.error(error.getMessage?? defaultLoginFailureMessage);
     }
   };
   const { status, type: loginType } = userLoginState;

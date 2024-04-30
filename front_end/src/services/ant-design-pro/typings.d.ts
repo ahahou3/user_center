@@ -99,4 +99,15 @@ declare namespace API {
     description?: string;
     type?: NoticeIconItemType;
   };
+
+  /**
+   * 通用返回类
+   */
+  type BaseResponse<T> = {
+    code: number,
+    data: T,
+    message: string,
+    description: string,
+  }
+
 }
