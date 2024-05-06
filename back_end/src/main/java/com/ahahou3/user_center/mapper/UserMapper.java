@@ -11,6 +11,9 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 */
 public interface UserMapper extends BaseMapper<User> {
 
+    int getUserId(String userAccount);
+
+    String getUserPwd(String userAccount);
 }
 
 

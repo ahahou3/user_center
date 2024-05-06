@@ -27,4 +27,16 @@
         createTime,updateTime,isDelete,
         userRole
     </sql>
+
+    <select id="getUserId" parameterType="String" resultType="int">
+        SELECT COUNT(*)
+        FROM user
+        WHERE userAccount = #{userAccount}
+    </select>
+
+    <select id="getUserPwd" parameterType="String" resultType="String">
+        SELECT userPassword
+        FROM user
+        WHERE userAccount = #{userAccount}
+    </select>
 </mapper>
