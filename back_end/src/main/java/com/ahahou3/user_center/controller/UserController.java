@@ -14,8 +14,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.ahahou3.user_center.constant.UserConstants.ADMIN_ROLE;
 import static com.ahahou3.user_center.constant.UserConstants.USER_LOGIN_STATE;
@@ -43,8 +43,7 @@ public class UserController {
         if (StringUtils.isAnyBlank(userAccount, userPassword, checkPassword)){
             throw new BusinessException(ErrorCode.PARAMETERS_ERROR);
         }
-        long result = userService.userRegister(userAccount, userPassword, checkPassword);
-        return ResultUtil.success(result);
+        return userService.userRegister(userAccount, userPassword, checkPassword);
     }
 
     @PostMapping("/login")
@@ -62,15 +61,16 @@ public class UserController {
     }
 
     @PostMapping("/logout")
-    public Integer userLogout(HttpServletRequest request){
+    public BaseResponse<Integer> userLogout(HttpServletRequest request){
         if (request == null){
             throw new BusinessException(ErrorCode.PARAMETERS_ERROR);
         }
-        return userService.userLogout(request);
+        int result = userService.userLogout(request);
+        return ResultUtil.success(result);
     }
 
     @GetMapping("/search")
-    public List<User> searchUsers(String userName, HttpServletRequest request){
+    public BaseResponse<List<User>> searchUsers(String userName, HttpServletRequest request){
         if(!isAdmin(request)) {
             throw new BusinessException(ErrorCode.NO_AUTH);
         }
@@ -78,7 +78,9 @@ public class UserController {
         if(StringUtils.isNotBlank(userName)){
             queryWrapper.like("userName", userName);
         }
-        return userService.list(queryWrapper);
+        List<User> userList = userService.list(queryWrapper);
+        List<User> list = userList.stream().map(user -> userService.getSaftyUser(user)).collect(Collectors.toList());
+        return ResultUtil.success(list);
     }
 
     @GetMapping("/current")
@@ -105,8 +107,8 @@ public class UserController {
         if (id <= 0){
             throw new BusinessException(ErrorCode.PARAMETERS_ERROR);
         }
-        boolean b = userService.removeById(id);
-        return ResultUtil.success(b);
+        boolean flag = userService.removeById(id);
+        return ResultUtil.success(flag);
     }
 
     /**

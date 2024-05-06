@@ -1,5 +1,6 @@
 package com.ahahou3.user_center.service;
 
+import com.ahahou3.user_center.common.BaseResponse;
 import com.ahahou3.user_center.model.domain.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,12 +15,12 @@ public interface UserService extends IService<User> {
     /**
      * 用户注册
      *
-     * @param userAccount 用户账户
-     * @param userPassword 用户密码
+     * @param userAccount   用户账户
+     * @param userPassword  用户密码
      * @param checkPassword 校验密码
      * @return 新用户id
      */
-    long userRegister(String userAccount, String userPassword, String checkPassword);
+    BaseResponse<Long> userRegister(String userAccount, String userPassword, String checkPassword);
 
     /**
      *用户登录
