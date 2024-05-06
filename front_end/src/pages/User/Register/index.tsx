@@ -59,13 +59,11 @@ const Register: React.FC = () => {
           urlParams,
         });
         return;
-      }else{
-        throw new Error('register error id = ${id}')
       }
-    } catch (error) {
+    } catch (error: any) {
       const defaultLoginFailureMessage = '注册失败，请重试！';
-      console.log(error);
-      message.error(defaultLoginFailureMessage);
+      console.log("error = ", error)
+      message.error(error.message?? defaultLoginFailureMessage);
     }
   };
   return (
