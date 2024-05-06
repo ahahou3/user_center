@@ -8,17 +8,30 @@ const request = extend({
 })
 request.interceptors.response.use(async (response: Response) => {
   const res =  await response.clone().json()
-
+  if(res.code === 200){
+    return res.data
+  }
   if (res.code === 410) {
-    message.error('请先登录');
+    message.error('未登录');
     history.replace({
       pathname: '/user/login',
       search: stringify({
         redirect: location.pathname
       })
     })
+    return
   }
-  return res;
+  if(res.code === 400){
+    console.log("400")
+    message.error(res.description)
+    return res
+  }
+  if(res.code === 401){
+    message.error(res.description)
+  }
+
+  console.log("全局异常处理器数据：", res);
+  // return res.data;
 })
 
 export default request
