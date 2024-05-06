@@ -81,6 +81,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         User user =  new User();
         user.setUserAccount(userAccount);
         user.setUserPassword(encryptPassword);
+        user.setUserName(userAccount);
+        user.setAvatarUrl("https://img1.baidu.com/it/u=534429813,2995452219&fm=253&fmt=auto&app=120&f=JPEG?w=800&h=800");
         boolean saveResult = this.save(user);
         if(!saveResult){//检验存储结果是否为null
             throw new BusinessException(ErrorCode.PARAMETERS_ERROR,"注册失败，信息未存入，请重试");
