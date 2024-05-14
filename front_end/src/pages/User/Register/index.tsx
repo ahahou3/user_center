@@ -1,13 +1,14 @@
 import { Footer } from '@/components';
 import { register} from '@/services/ant-design-pro/api';
 import { LockOutlined, UserOutlined,} from '@ant-design/icons';
-import { LoginForm, ProFormText,} from '@ant-design/pro-components';
+import { LoginForm, ProFormText, ProFormSelect} from '@ant-design/pro-components';
 import { Helmet, history } from '@umijs/max';
-import { Tabs, message } from 'antd';
+import {Tabs, message, Divider, Space} from 'antd';
 import { createStyles } from 'antd-style';
 import React, { useState } from 'react';
 import Settings from '../../../../config/defaultSettings';
 import {SYSTEM_LOGO} from "@/constants/indext";
+import {Link} from "@@/exports";
 const useStyles = createStyles(({ token }) => {
   return {
     action: {
@@ -106,7 +107,7 @@ const Register: React.FC = () => {
             items={[
               {
                 key: 'account',
-                label: '注册',
+                label: '注册 Register',
               },
             ]}
           />
@@ -117,13 +118,13 @@ const Register: React.FC = () => {
                 name="userAccount"
                 fieldProps={{
                   size: 'large',
-                  prefix: <UserOutlined />,
+                  prefix: <UserOutlined/>,
                 }}
-                placeholder={'请输入用户名'}
+                placeholder={'请输入用户名 Account'}
                 rules={[
                   {
                     required: true,
-                    message: '用户名是必填项！',
+                    message: '用户名是必填项！Account is Required',
                   },
                 ]}
               />
@@ -131,18 +132,18 @@ const Register: React.FC = () => {
                 name="userPassword"
                 fieldProps={{
                   size: 'large',
-                  prefix: <LockOutlined />,
+                  prefix: <LockOutlined/>,
                 }}
-                placeholder={'请输入密码'}
+                placeholder={'请输入密码 Password'}
                 rules={[
                   {
                     required: true,
-                    message: '密码是必填项！',
+                    message: '密码是必填项！Password is Required',
                   },
                   {
                     min: 8,
                     type: "string",
-                    message: '密码长度不能小于 8',
+                    message: '密码长度不能小于 8 Cannot shorter than 8 character',
                   },
                 ]}
               />
@@ -150,26 +151,60 @@ const Register: React.FC = () => {
                 name="checkPassword"
                 fieldProps={{
                   size: 'large',
-                  prefix: <LockOutlined />,
+                  prefix: <LockOutlined/>,
                 }}
-                placeholder={'请重复输入密码'}
+                placeholder={'请重复输入密码 Repeat Password'}
                 rules={[
                   {
                     required: true,
-                    message: '重复密码是必填项！',
+                    message: '重复密码是必填项！Repeat Password is Required',
                   },
                   {
                     min: 8,
                     type: "string",
-                    message: '密码长度不能小于 8',
+                    message: '密码长度不能小于 8 Cannot shorter than 8 character',
                   },
                 ]}
               />
+              <Space split={<Divider type="vertical"/>}>
+                <ProFormSelect
+                  width="xs"
+                  options={[
+                    {
+                      value: '0',
+                      label: '男 Male',
+                    },
+                    {
+                      value: '1',
+                      label: '女 Female',
+                    },
+                    {
+                      value: '2',
+                      label: '不想告诉你 Dont wanna tell ',
+                    },
+                  ]}
+                  rules={[
+                    {
+                      required: true,
+                      message: '性别是必填项！Gender is Required',
+                    },
+                  ]}
+                  name="gender"
+                  label="性别 Gender"
+                />
+                  <Link to="/user/login">已有账号？请登录</Link>
+                <a
+                  style={{
+                    float: 'right',
+                  }}
+                >
+                </a>
+              </Space>
             </>
           )}
         </LoginForm>
       </div>
-      <Footer />
+      <Footer/>
     </div>
   );
 };
