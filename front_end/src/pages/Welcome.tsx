@@ -114,7 +114,7 @@ const Welcome: React.FC = () => {
               color: token.colorTextHeading,
             }}
           >
-            欢迎来到暴富之家
+            欢迎来到暴富之家 Welcome to Rich People site
           </div>
           <p
             style={{
@@ -127,6 +127,17 @@ const Welcome: React.FC = () => {
             }}
           >
             这是我做的第一个项目(v0.0.1)，功能正在逐步完善中。目前正在内测，如果有关于功能改善和体验提升的建议，直接微信私聊我。
+          </p>
+          <p
+            style={{
+              fontSize: '15px',
+              color: token.colorTextSecondary,
+              lineHeight: '22px',
+              marginTop: 16,
+              width: '65%',
+            }}
+          >
+            This my first personal project(v0.0.1), future functions are on the way. If you have any suggestion, please DM me.
           </p>
           <div
             style={{
