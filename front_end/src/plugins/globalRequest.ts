@@ -4,8 +4,13 @@ import {stringify} from "querystring";
 import { message } from 'antd';
 
 const request = extend({
-
+  credentials: 'include', //默认请求是否带上cookie
+  prefix: process.env.NODE_ENV === 'production'? 'http://114.132.157.143': undefined,
 })
+
+/**
+ * 全局请求拦截器
+ */
 request.interceptors.response.use(async (response: Response) => {
   const res =  await response.clone().json()
   if(res.code === 200){
