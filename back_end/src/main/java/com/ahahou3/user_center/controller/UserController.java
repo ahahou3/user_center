@@ -40,10 +40,11 @@ public class UserController {
         String userAccount = userRegisterRequest.getUserAccount();
         String userPassword = userRegisterRequest.getUserPassword();
         String checkPassword = userRegisterRequest.getCheckPassword();
+        Integer gender = userRegisterRequest.getGender();
         if (StringUtils.isAnyBlank(userAccount, userPassword, checkPassword)){
             throw new BusinessException(ErrorCode.PARAMETERS_ERROR);
         }
-        return userService.userRegister(userAccount, userPassword, checkPassword);
+        return userService.userRegister(userAccount, userPassword, checkPassword, gender);
     }
 
     @PostMapping("/login")

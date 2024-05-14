@@ -44,7 +44,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
 
 
     @Override
-    public BaseResponse<Long> userRegister(String userAccount, String userPassword, String checkPassword) {
+    public BaseResponse<Long> userRegister(String userAccount, String userPassword, String checkPassword, Integer gender) {
 
         // 1. 校验
         if(StringUtils.isAnyBlank(userAccount, userPassword, checkPassword)){
@@ -82,6 +82,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         user.setUserAccount(userAccount);
         user.setUserPassword(encryptPassword);
         user.setUserName(userAccount);
+        user.setGender(gender);
         user.setAvatarUrl("https://img1.baidu.com/it/u=534429813,2995452219&fm=253&fmt=auto&app=120&f=JPEG?w=800&h=800");
         boolean saveResult = this.save(user);
         if(!saveResult){//检验存储结果是否为null
