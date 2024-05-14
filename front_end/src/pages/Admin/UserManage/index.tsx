@@ -1,8 +1,8 @@
 import type { ActionType, ProColumns } from '@ant-design/pro-components';
 import { ProTable } from '@ant-design/pro-components';
 import {useRef} from 'react';
-import {searchUsers} from "@/services/ant-design-pro/api";
-import {Image} from "antd";
+import {deleteUser, searchUsers} from "@/services/ant-design-pro/api";
+import {Image, message, Modal} from "antd";
 export const waitTimePromise = async (time: number = 100) => {
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -14,7 +14,6 @@ export const waitTimePromise = async (time: number = 100) => {
 export const waitTime = async (time: number = 100) => {
   await waitTimePromise(time);
 };
-
 
 const columns: ProColumns<API.CurrentUser>[] = [
   {
@@ -84,6 +83,41 @@ const columns: ProColumns<API.CurrentUser>[] = [
     dataIndex: 'createTime',
     valueType: 'dateTime',
   },
+  {
+    title: '操作',
+    valueType: 'option',
+    key: 'option',
+    render: (text, record, _, action) => [
+      <a
+        key="editable"
+        onClick={() => {
+          action?.startEditable?.(record.id);
+        }}
+      >
+        管理
+      </a>,
+      <a
+        key="delete"
+        onClick={() => {
+          Modal.confirm({
+            title: '确认删除',
+            content: '确定要删除这个用户吗？',
+            onOk: async () => {
+              try {
+                await deleteUser(record.id );
+                message.success('用户删除成功');
+                action?.reload();
+              } catch (error) {
+                message.error('删除失败，请重试');
+              }
+            },
+          });
+        }}
+      >
+        删除
+      </a>,
+    ],
+  },
 ];
 
 export default () => {
@@ -95,7 +129,7 @@ export default () => {
       cardBordered
       request={async (params, sort, filter) => {
         console.log(sort, filter);
-        await waitTime(2000);
+        await waitTime(500);
         const userList = await searchUsers();
         return {
           data: userList
@@ -136,7 +170,7 @@ export default () => {
         },
       }}
       pagination={{
-        pageSize: 5,
+        pageSize: 10,
         onChange: (page) => console.log(page),
       }}
       dateFormatter="string"

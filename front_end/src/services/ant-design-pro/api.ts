@@ -43,6 +43,18 @@ export async function register(body: API.RegisterParams, options?: { [key: strin
   });
 }
 
+/** 删除接口 POST /api/user/delete */
+export async function deleteUser(id: number, options?: { [key: string]: any }) {
+  return request<API.BaseResponse<API.RegisterResult>>('/api/user/delete', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: id,
+    ...(options || {}),
+  });
+}
+
 /** 此处后端没有提供注释 GET /api/search */
 export async function searchUsers(options?: { [key: string]: any }) {
   return request<API.BaseResponse<API.NoticeIconList>>('/api/user/search', {
