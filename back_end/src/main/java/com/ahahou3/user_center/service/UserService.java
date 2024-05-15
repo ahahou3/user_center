@@ -2,6 +2,7 @@ package com.ahahou3.user_center.service;
 
 import com.ahahou3.user_center.common.BaseResponse;
 import com.ahahou3.user_center.model.domain.User;
+import com.ahahou3.user_center.model.domain.request.UserUpdateRequest;
 import com.baomidou.mybatisplus.extension.service.IService;
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -37,6 +38,8 @@ public interface UserService extends IService<User> {
      * @return 脱敏后用户信息
      */
     User getSaftyUser(User originUser);
+
+    boolean updateUser(UserUpdateRequest userUpdateRequest);
 
     /**
      * 用户注销

@@ -4,6 +4,7 @@ import com.ahahou3.user_center.common.BaseResponse;
 import com.ahahou3.user_center.common.ErrorCode;
 import com.ahahou3.user_center.common.ResultUtil;
 import com.ahahou3.user_center.exception.BusinessException;
+import com.ahahou3.user_center.model.domain.request.UserUpdateRequest;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ahahou3.user_center.model.domain.User;
@@ -166,6 +167,38 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         saftyUser.setCreateTime(originUser.getCreateTime());
         saftyUser.setUserRole(originUser.getUserRole());
         return saftyUser;
+    }
+
+    @Override
+    public boolean updateUser(UserUpdateRequest userUpdateRequest) {
+        User user = new User();
+        user.setId(userUpdateRequest.getId());
+        user.setUserName(userUpdateRequest.getUserName());
+
+        if ("".equals(userUpdateRequest.getEmail())){
+            user.setEmail(null);
+        }else{
+            user.setEmail(userUpdateRequest.getEmail());
+        }
+
+        if ("".equals(userUpdateRequest.getPhone())){
+            user.setPhone(null);
+        }else{
+            user.setPhone(userUpdateRequest.getPhone());
+        }
+
+        user.setGender(userUpdateRequest.getGender());
+        user.setUserRole(userUpdateRequest.getUserRole());
+
+        if ("".equals(userUpdateRequest.getAvatarUrl())){
+            user.setAvatarUrl("https://img1.baidu.com/it/u=534429813,2995452219&fm=253&fmt=auto&app=120&f=JPEG?w=800&h=800");
+        }else{
+            user.setAvatarUrl(userUpdateRequest.getAvatarUrl());
+        }
+
+        // 根据主键更新用户信息
+        int result = userMapper.updateById(user);
+        return result > 0;
     }
 
     /**

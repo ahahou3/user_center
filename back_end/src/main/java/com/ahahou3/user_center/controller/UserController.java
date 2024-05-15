@@ -7,6 +7,7 @@ import com.ahahou3.user_center.exception.BusinessException;
 import com.ahahou3.user_center.model.domain.User;
 import com.ahahou3.user_center.model.domain.request.UserLoginRequest;
 import com.ahahou3.user_center.model.domain.request.UserRegisterRequest;
+import com.ahahou3.user_center.model.domain.request.UserUpdateRequest;
 import com.ahahou3.user_center.service.UserService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import jakarta.annotation.Resource;
@@ -98,6 +99,19 @@ public class UserController {
             return ResultUtil.success(safeUser);
     }
 
+    @PostMapping("/update")
+    public BaseResponse<Boolean> updateUser(@RequestBody UserUpdateRequest userUpdateRequest, HttpServletRequest request) {
+        if (!isAdmin(request)) {
+            throw new BusinessException(ErrorCode.NO_AUTH);
+        }
+
+        if (userUpdateRequest == null || userUpdateRequest.getId() == null || userUpdateRequest.getId() <= 0) {
+            throw new BusinessException(ErrorCode.PARAMETERS_ERROR);
+        }
+
+        boolean flag = userService.updateUser(userUpdateRequest);
+        return ResultUtil.success(flag);
+    }
 
     @PostMapping("/delete")
     public BaseResponse<Boolean> deleteUser(@RequestBody long id, HttpServletRequest request){
