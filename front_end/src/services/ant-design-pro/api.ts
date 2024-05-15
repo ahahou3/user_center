@@ -55,6 +55,18 @@ export async function deleteUser(id: number, options?: { [key: string]: any }) {
   });
 }
 
+/** 更新用户信息接口 POST /api/user/update */
+export async function updateUser(data: API.UserUpdateRequest, options?: { [key: string]: any }) {
+  return request<API.BaseResponse<boolean>>('/api/user/update', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data,
+    ...(options || {}),
+  });
+}
+
 /** 此处后端没有提供注释 GET /api/search */
 export async function searchUsers(options?: { [key: string]: any }) {
   return request<API.BaseResponse<API.NoticeIconList>>('/api/user/search', {
