@@ -134,10 +134,38 @@ const Welcome: React.FC = () => {
               color: token.colorTextSecondary,
               lineHeight: '22px',
               marginTop: 16,
+              marginBottom:32,
               width: '65%',
             }}
           >
-            This my first personal project(v0.0.1), future functions are on the way. If you have any suggestion, please DM me.
+            This my first personal project(v0.0.1), future functions are on the way. If you have any suggestion, please
+            DM me.
+          </p>
+          <div
+            style={{
+              fontSize: '20px',
+              color: token.colorTextHeading,
+            }}
+          >
+            更新日志 Update Log
+          </div>
+          <p
+            style={{
+              fontSize: '14px',
+              color: token.colorTextSecondary,
+              lineHeight: '22px',
+              marginTop: 16,
+              marginBottom: 32,
+              width: '65%',
+            }}
+          >
+            <p>- 现在注册页面可以返回登录页，并且注册页面要求选择性别 (14/May/2024)</p>
+            <p>- Now you can return to login page from register page, and gender is required in register page
+              (14/May/2024)</p>
+            <p>- 现在管理员可以逻辑删除用户 (14/May/2024)</p>
+            <p>- Now Admin user can logical delete normal user (14/May/2024)</p>
+            <p>- 现在管理员可以修改用户的用户名，电话，邮箱，头像，性别，权限 (15/May/2024)</p>
+            <p>- Now Admin user can update username, phone, email, avatar ,gender, privileges(15/May/2024)</p>
           </p>
           <div
             style={{
