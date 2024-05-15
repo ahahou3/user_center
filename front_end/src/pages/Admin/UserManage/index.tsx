@@ -78,10 +78,8 @@ const YourComponent = () => {
       valueType: 'text',
       valueEnum: {
         0: { text: '男', status:"Default" },
-        1: {
-          text: '女',
-          status: 'Default',
-        }
+        1: { text: '女', status:'Default' },
+        2: { text: '不想告诉你', status:'Default' },
       },
     },
     {
@@ -97,6 +95,9 @@ const YourComponent = () => {
     {
       title: '账号状态',
       dataIndex: 'userStatus',
+      valueEnum: {
+        0: { text: '正常', status:"Default" },
+      },
     },
     {
       title: '权限',
