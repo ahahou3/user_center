@@ -176,13 +176,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         user.setUserName(userUpdateRequest.getUserName());
 
         if ("".equals(userUpdateRequest.getEmail())){
-            user.setEmail(null);
+            user.setEmail("未填写");
         }else{
             user.setEmail(userUpdateRequest.getEmail());
         }
 
         if ("".equals(userUpdateRequest.getPhone())){
-            user.setPhone(null);
+            user.setPhone("未填写");
         }else{
             user.setPhone(userUpdateRequest.getPhone());
         }
