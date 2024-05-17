@@ -32,11 +32,13 @@
         SELECT COUNT(*)
         FROM user
         WHERE userAccount = #{userAccount}
+        AND isDelete = '0'
     </select>
 
     <select id="getUserPwd" parameterType="String" resultType="String">
         SELECT userPassword
         FROM user
         WHERE userAccount = #{userAccount}
+        AND isDelete = '0'
     </select>
 </mapper>

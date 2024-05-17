@@ -15,7 +15,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static com.ahahou3.user_center.constant.UserConstants.ADMIN_ROLE;
@@ -71,19 +73,33 @@ public class UserController {
         return ResultUtil.success(result);
     }
 
-    @GetMapping("/search")
-    public BaseResponse<List<User>> searchUsers(String userName, HttpServletRequest request){
-        if(!isAdmin(request)) {
-            throw new BusinessException(ErrorCode.NO_AUTH);
-        }
-        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        if(StringUtils.isNotBlank(userName)){
-            queryWrapper.like("userName", userName);
-        }
-        List<User> userList = userService.list(queryWrapper);
-        List<User> list = userList.stream().map(user -> userService.getSaftyUser(user)).collect(Collectors.toList());
-        return ResultUtil.success(list);
+@GetMapping("/search")
+public BaseResponse<List<User>> searchUsers(String userName, String userAccount,  String email,  String phone,
+                                            Integer gender,  Integer userRole,HttpServletRequest request) {
+    if(!isAdmin(request)) {
+        throw new BusinessException(ErrorCode.NO_AUTH);
     }
+    QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+
+    // 使用Map存储查询条件
+    Map<String, Object> queryConditions = new HashMap<>();
+    queryConditions.put("userName", userName);
+    queryConditions.put("userAccount", userAccount);
+    queryConditions.put("email", email);
+    queryConditions.put("phone", phone);
+    queryConditions.put("gender", gender);
+    queryConditions.put("userRole", userRole);
+
+    // 遍历Map并添加条件到queryWrapper
+    queryConditions.forEach((key, value) -> {
+        if (value != null && StringUtils.isNotBlank(value.toString())) {
+            queryWrapper.like(key, value);
+        }
+    });
+    List<User> userList = userService.list(queryWrapper);
+    List<User> list = userList.stream().map(user -> userService.getSaftyUser(user)).collect(Collectors.toList());
+    return ResultUtil.success(list);
+}
 
     @GetMapping("/current")
     public BaseResponse<User> getCurrentUser(HttpServletRequest request) {
