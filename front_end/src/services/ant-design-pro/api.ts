@@ -68,9 +68,10 @@ export async function updateUser(data: API.UserUpdateRequest, options?: { [key: 
 }
 
 /** 此处后端没有提供注释 GET /api/search */
-export async function searchUsers(options?: { [key: string]: any }) {
-  return request<API.BaseResponse<API.NoticeIconList>>('/api/user/search', {
+export async function searchUsers(params: API.SearchUserRequest, options?: { [key: string]: any }) {
+  return request<API.BaseResponse<API.SearchUserRequest>>('/api/user/search', {
     method: 'GET',
+    params,
     ...(options || {}),
   });
 }

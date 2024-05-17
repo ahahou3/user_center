@@ -66,6 +66,7 @@ const YourComponent = () => {
     {
       title: '头像',
       dataIndex: 'avatarUrl',
+      hideInSearch: true,
       render:(_, record) => (
         <div>
           <Image src={record.avatarUrl} width={100} />
@@ -115,6 +116,7 @@ const YourComponent = () => {
       title: '创建时间',
       dataIndex: 'createTime',
       valueType: 'dateTime',
+      hideInSearch: true,
     },
     {
       title: '操作',
@@ -162,9 +164,10 @@ const YourComponent = () => {
         actionRef={actionRef}
         cardBordered
         request={async (params, sort, filter) => {
-          console.log(sort, filter);
+          console.log('sort, filter:',sort, filter);
+          console.log('Search params:', params);  // 输出请求参数
           await waitTime(500);
-          const userList = await searchUsers();
+          const userList = await searchUsers(params);
           return {
             data: userList
           }

@@ -78,6 +78,15 @@ declare namespace API {
     userRole?: number;
   };
 
+  type SearchUserRequest = {
+    userName?: string;
+    userAccount?: string;
+    email?: string;
+    phone?: string;
+    gender?: number;
+    userRole?: number;
+  };
+
   type ErrorResponse = {
     /** 业务约定的错误码 */
     errorCode: string;
