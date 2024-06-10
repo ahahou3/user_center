@@ -14,3 +14,5 @@
 - Now Admin user can update username, phone, email, avatar ,gender, privileges(15/May/2024)
 - 现在管理员可以通过用户名，账号，电话，邮箱，性别，账号状态，权限 检索用户 (17/May/2024)
 - Now Admin user can search user by username, user account, phone, email, gender, state, privileges (17/May/2024)
+- 原数据库过期，改用做过数据迁移的新数据库 (10/June/2024)
+- The original database has expired and has been replaced with a new database that has undergone data migration (10/June/2024)
