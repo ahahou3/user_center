@@ -12,6 +12,12 @@ const Footer: React.FC = () => {
           title: <GithubOutlined />,
           href: 'https://github.com/ahahou3',
           blankTarget: true,
+        },
+        {
+          key:'备案号',
+          title:'闽ICP备2024055721号-1',
+          href:'https://beian.miit.gov.cn',
+          blankTarget: true,
         }
       ]}
     />
